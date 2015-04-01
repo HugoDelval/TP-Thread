@@ -16,8 +16,6 @@ void print_prime_factors(uint64_t n)
 				printf("%ju ", i);
 				n/=i;
 			}
-			if(i%100000000 == 0)
-				printf(" etape: %ju ", i);
 				
 		}
 		printf("\n");
@@ -26,7 +24,7 @@ void print_prime_factors(uint64_t n)
 
 int main(void)
 {
-    FILE* f = fopen("small.txt", "r");
+    FILE* f = fopen("question3.court.txt", "r");
     char ligne [50];
     while( fgets(ligne,sizeof(ligne),f) )
     {
