@@ -3,10 +3,22 @@
 
 void print_prime_factors(uint64_t n)
 {
-
-    // your code goes here: print "n", a colon, and then the prime factors
-
-
+	uint64_t i;
+    printf("%ju : ", n);
+    if(n!=2)
+	{
+		uint64_t fin = n;
+		for( i=2 ; i<fin && i!=1 ; i++)
+		{
+			while(n%i == 0)
+			{
+				printf("%ju ", i);
+				n/=i;
+			}
+				
+		}
+		printf("\n");
+	}
 }
 
 int main(void)
