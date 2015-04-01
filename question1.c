@@ -8,13 +8,15 @@ void print_prime_factors(uint64_t n)
     if(n!=2)
 	{
 		uint64_t fin = n;
-		for( i=2 ; i<fin && i!=1 ; i++)
+		for( i=2 ; i<=fin && i!=1 ; i++)
 		{
 			while(n%i == 0)
 			{
 				printf("%ju ", i);
 				n/=i;
 			}
+			if(i%100000000 == 0)
+				printf(" etape: %ju ", i);
 				
 		}
 		printf("\n");
