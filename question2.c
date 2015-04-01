@@ -2,21 +2,22 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-
 void print_prime_factors(uint64_t n)
 {
     uint64_t i;
     printf("%ju : ", n);
-    if(n!=2)
+    if(n!=1 && n!=2)
 	{
 		uint64_t fin = n;
-		for( i=2 ; i<=fin && i!=1 ; i++)
+		for( i=2 ; i<=fin && n!=1 ; i++)
 		{
 			while(n%i == 0)
 			{
 				printf("%ju ", i);
 				n/=i;
 			}
+			if(i%100000000 == 0)
+				printf(" etape: %ju ", i);
 				
 		}
 		printf("\n");
@@ -25,11 +26,11 @@ void print_prime_factors(uint64_t n)
 
 int main(void)
 {
-    FILE* f = fopen("primes.txt", "r");
+    FILE* f = fopen("small.txt", "r");
     char ligne [50];
     while( fgets(ligne,sizeof(ligne),f) )
     {
-		print_prime_factors( atoll(ligne) );
+		print_prime_factors( (uint64_t)atoll(ligne) );
 	}
 	
 	
