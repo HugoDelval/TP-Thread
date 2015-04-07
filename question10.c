@@ -32,25 +32,24 @@ static int get_prime_factors(uint64_t n,uint64_t* factors)
 		}
 		
 		uint64_t fin = n;
-		int passe = 1;
 		for( i=2 ; i<=fin && n!=1 ; i++)
 		{
-			while(n%i == 0)
+			if(n%i == 0)
 			{
-				if(passe == 1)
+				/* ajout tableau partage */
+				pthread_mutex_lock(&mtxTabPartage);
+				tab_partage[nb_factors_tab]=i;
+				nb_factors_tab++;
+				pthread_mutex_unlock(&mtxTabPartage);
+				/* */
+				while(n%i == 0)
 				{
-					/* ajout tableau partage */
-					pthread_mutex_lock(&mtxTabPartage);
-					tab_partage[nb_factors_tab]=i;
-					nb_factors_tab++;
-					pthread_mutex_unlock(&mtxTabPartage);
-					/* */
-					passe = 0;
+					factors[nb_factors]=i;
+					nb_factors++;
+					n/=i;
 				}
-				factors[nb_factors]=i;
-				nb_factors++;
-				n/=i;
-			}			
+			}
+			
 		}
 	}
 	return nb_factors;
