@@ -29,7 +29,7 @@ void * print_prime_factors(void * np)
 
 int main(void)
 {
-    FILE* f = fopen("question3.court.txt", "r");
+    FILE* f = fopen("question3.long.txt", "r");
     char ligne [50];
     uint64_t tab_nombre [10000];
     int taille=0;
