@@ -2,8 +2,10 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-void print_prime_factors(uint64_t n)
+void * print_prime_factors(void * np)
 {
+	uint64_t* pn =(uint64_t*) (np);
+	uint64_t n = (*pn);
     uint64_t i;
     printf("%ju : ", n);
     if(n!=1 && n!=2)
@@ -20,6 +22,8 @@ void print_prime_factors(uint64_t n)
 		}
 		printf("\n");
 	}
+	
+	return NULL;
 }
 
 int main(void)
@@ -28,7 +32,8 @@ int main(void)
     char ligne [50];
     while( fgets(ligne,sizeof(ligne),f) )
     {
-		print_prime_factors( (uint64_t)atoll(ligne) );
+		long long a = atoll(ligne);
+		print_prime_factors( &(a) );
 	}
 	
 	

@@ -5,8 +5,8 @@
 
 void * print_prime_factors(void * np)
 {
-	uint64_t n =(uint64_t) (*np);
-	
+	uint64_t* pn =(uint64_t*) (np);
+	uint64_t n = (*pn);
     uint64_t i;
     printf("%ju : ", n);
     if(n!=1 && n!=2)
@@ -23,13 +23,15 @@ void * print_prime_factors(void * np)
 		}
 		printf("\n");
 	}
-}//
+	
+	return 0;
+}
 
 int main(void)
 {
     FILE* f = fopen("question3.court.txt", "r");
     char ligne [50];
-    uint64_t tab_nombre [5000];
+    uint64_t tab_nombre [10000];
     int taille=0;
     while( fgets(ligne,sizeof(ligne),f) )
     {
@@ -41,7 +43,7 @@ int main(void)
 	if(taille%2 == 1)
 	{
 		taille--;
-		print_prime_factors(tab_nombre[taille]);
+		print_prime_factors(&tab_nombre[taille]);
 	}
 	
 	pthread_t thread1; 
