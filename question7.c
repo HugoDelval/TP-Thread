@@ -5,13 +5,13 @@
 
 static pthread_mutex_t mtxCpt;
 static FILE* f;
+#define MAX_FACTORS 63
 
 
-static void print_prime_factors(uint64_t n)
+static int get_prime_factors(uint64_t n,uint64_t* factors)
 {
-	printf("%ju : ", n);
-	
-    uint64_t i;
+	uint64_t i;
+	int nb_factors=0;
 	if(n!=1)
 	{
 		uint64_t fin = n;
@@ -19,13 +19,32 @@ static void print_prime_factors(uint64_t n)
 		{
 			while(n%i == 0)
 			{
-				printf("%ju ", i);
+				factors[nb_factors]=i;
+				nb_factors++;
 				n/=i;
 			}
-				
+			
 		}
-		printf("\n");
 	}
+	return nb_factors;
+}
+
+
+static void print_prime_factors(uint64_t n)
+{
+	
+	uint64_t factors[MAX_FACTORS];
+	int j,k;
+	k=get_prime_factors(n,factors);
+	
+	printf("%ju: ",n);
+	
+	for(j=0; j<k; j++)
+	{
+		printf("%ju ",factors[j]);
+	}
+	
+	printf("\n");
 }
 
 
