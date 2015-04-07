@@ -43,6 +43,9 @@ question5: question5.c
 question7: question7.c
 	gcc -Wall -pthread -o question7 question7.c 
 
+question10: question10.c
+	gcc -Wall -pthread -o question10 question10.c 
+
 # add your own rules when you create new programs
 
 #########################

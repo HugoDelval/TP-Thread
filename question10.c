@@ -5,9 +5,12 @@
 
 static pthread_mutex_t mtxCpt;
 static FILE* f;
-static pthread_mutex_t mtxAffichage;
 #define MAX_FACTORS 63
-
+#define NB_MAX_NOMBRES 2000
+static uint64_t tab_partage[MAX_FACTORS*NB_MAX_NOMBRES]; 
+static pthread_mutex_t mtxTabPartage;
+static pthread_mutex_t mtxAffichage;
+static int nb_factors_tab = 0;
 
 static int get_prime_factors(uint64_t n,uint64_t* factors)
 {
@@ -15,16 +18,39 @@ static int get_prime_factors(uint64_t n,uint64_t* factors)
 	int nb_factors=0;
 	if(n!=1)
 	{
+		for(i=0 ; i<nb_factors_tab ; i++)
+		{
+			pthread_mutex_lock(&mtxTabPartage);
+			uint64_t nb_candidat = tab_partage[i];
+			pthread_mutex_unlock(&mtxTabPartage);
+			while(n%nb_candidat == 0)
+			{
+				factors[nb_factors]=nb_candidat;
+				nb_factors++;
+				n/=nb_candidat;
+			}
+		}
+		
 		uint64_t fin = n;
+		int passe = 1;
 		for( i=2 ; i<=fin && n!=1 ; i++)
 		{
 			while(n%i == 0)
 			{
+				if(passe == 1)
+				{
+					/* ajout tableau partage */
+					pthread_mutex_lock(&mtxTabPartage);
+					tab_partage[nb_factors_tab]=i;
+					nb_factors_tab++;
+					pthread_mutex_unlock(&mtxTabPartage);
+					/* */
+					passe = 0;
+				}
 				factors[nb_factors]=i;
 				nb_factors++;
 				n/=i;
-			}
-			
+			}			
 		}
 	}
 	return nb_factors;
@@ -71,7 +97,7 @@ static void * gestion_threads(void * np) //np=null
 
 int main(void)
 {
-	pthread_t thread1; 
+	pthread_t thread1;
 	pthread_t thread2; 
 	
 	pthread_mutex_init(&mtxCpt, NULL);
@@ -81,6 +107,7 @@ int main(void)
 	pthread_create(&thread2, NULL, gestion_threads, NULL );
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
+	
 	
 	
     fclose(f);

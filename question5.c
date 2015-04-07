@@ -54,7 +54,7 @@ int main(void)
 	pthread_t thread2; 
 	
 	pthread_mutex_init(&mtxCpt, NULL);
-	f= fopen("small.txt", "r");
+	f= fopen("question3.court.txt", "r");
 	
 	pthread_create(&thread1, NULL, gestion_threads, NULL );
 	pthread_create(&thread2, NULL, gestion_threads, NULL );

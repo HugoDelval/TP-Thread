@@ -5,7 +5,7 @@ void print_prime_factors(uint64_t n)
 {
 	uint64_t i;
     printf("%ju : ", n);
-    if(n!=1 && n!=2)
+    if(n!=1)
 	{
 		uint64_t fin = n;
 		for( i=2 ; i<=fin && n!=1 ; i++)

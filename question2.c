@@ -8,7 +8,7 @@ void * print_prime_factors(void * np)
 	uint64_t n = (*pn);
     uint64_t i;
     printf("%ju : ", n);
-    if(n!=1 && n!=2)
+    if(n!=1)
 	{
 		uint64_t fin = n;
 		for( i=2 ; i<=fin && n!=1 ; i++)
@@ -28,7 +28,11 @@ void * print_prime_factors(void * np)
 
 int main(void)
 {
-    FILE* f = fopen("question3.court.txt", "r");
+	// temps ~= avec question3.c si fichier contient en alternance
+	// un grand nombre (difficile a decomposer) puis un nombre facile a decomposer
+    
+    // temps > question3.c si les nombres sont egalement difficile a decomposer
+    FILE* f = fopen("question3.long.txt", "r");
     char ligne [50];
     while( fgets(ligne,sizeof(ligne),f) )
     {
