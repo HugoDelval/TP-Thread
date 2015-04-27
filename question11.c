@@ -49,22 +49,24 @@ static void * gestion_threads(void * np) //np=null
 
 int main(void)
 {
+	initialiserTableHashage();
+
 	pthread_t thread1;
 	pthread_t thread2; 
-	pthread_t thread3;
-	pthread_t thread4; 
+	// pthread_t thread3;
+	// pthread_t thread4; 
 	
 	pthread_mutex_init(&mtxCpt, NULL);
 	f= fopen("small.txt", "r");
 	
 	pthread_create(&thread1, NULL, gestion_threads, NULL );
 	pthread_create(&thread2, NULL, gestion_threads, NULL );
-	pthread_create(&thread3, NULL, gestion_threads, NULL );
-	pthread_create(&thread4, NULL, gestion_threads, NULL );
+	// pthread_create(&thread3, NULL, gestion_threads, NULL );
+	// pthread_create(&thread4, NULL, gestion_threads, NULL );
 	pthread_join(thread1, NULL);
 	pthread_join(thread2, NULL);
-	pthread_join(thread3, NULL);
-	pthread_join(thread4, NULL);
+	// pthread_join(thread3, NULL);
+	// pthread_join(thread4, NULL);
 	
 	
     fclose(f);
